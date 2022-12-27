@@ -15,13 +15,14 @@ class Character(pygame.sprite.Sprite):
         self.maxVelocity = velocity*1.5
         self.moveRight = False
         self.moveLeft = False
-        self.moveUp = False
-        self.moveDown = False
+        # self.moveUp = False
+        # self.moveDown = False
         self.rightCollide = False
         self.leftCollide = False
         self.topCollide = False
         self.downCollide = False
         self.orderedToAttack = False
+        self.orderedToJump = False
         self.rightIdleAnimation = Animation(assets[0], 0.07)
         self.leftIdleAnimation = Animation(assets[1], 0.07)
         self.rightRunAnimation = Animation(assets[2], 0.07)
@@ -32,13 +33,16 @@ class Character(pygame.sprite.Sprite):
         self.leftHurtAnimation = Animation(assets[7], 0.07)
         self.rightDeathAnimation = Animation(assets[8], 0.07)
         self.leftDeathAnimation = Animation(assets[9], 0.07)
+        self.rightJumpAnimation = Animation(assets[10], 0.07)
+        self.leftJumpAnimation = Animation(assets[11], 0.07)
         self.currentAnimation = self.rightIdleAnimation
-        self.pos_float = [50.0, 364.0]
+        self.pos_float = [50.0, 540.0]  # player initial position
         self.rect = self.rightRunAnimation.frames[0].get_rect()
         self.rect.x = int(self.pos_float[0])  # player starting x (and y)
         self.rect.y = int(self.pos_float[1])
         self.side = 'right'
         self.isAttacking = False
+        self.isJumping = False
         self.notOrdered = True
         self.WIN = self.handler.game.WIN
         self.image = self.currentAnimation.frames[0]
@@ -90,62 +94,64 @@ class Character(pygame.sprite.Sprite):
         else:
             self.downCollide = False
 
-        if self.rightCollide or (self.rect.center[0] > 3656 and self.rect.center[1] > 314) or self.rect.x + self.rect.width + self.velocity >= self.handler.game.gameState.gameDisplayer.world_1.bg.get_rect().width:
+        if self.rightCollide or self.rect.center[0] > 2600 or self.rect.x + self.rect.width + self.velocity >= self.handler.game.gameState.gameDisplayer.current_world.bg_width_test:
             self.moveRight = False
+            # print("________no right")
 
-        if self.leftCollide or self.rect.x - self.velocity <= 0 or (self.rect.center[0] < 183 and self.rect.center[1] > 314):
+        if self.leftCollide or self.rect.x - self.velocity <= 0 or (self.rect.center[0] < 50):
             self.moveLeft = False
+            # print("________no left")
 
         # or (self.rect.center[0] < 150 and self.rect.center[1]<300):
-        if self.topCollide or self.rect.center[1] - self.velocity <= 240:
-            self.moveUp = False
+        # if self.topCollide or self.rect.center[1] - self.velocity <= 240:
+        #     self.moveUp = False
 
-        if self.downCollide or (self.rect.center[0] < 183 and self.rect.center[1] > 314) or self.rect.y + self.rect.height + self.velocity >= self.handler.game.gameState.gameDisplayer.world_1.bg.get_rect().height - 140:
-            self.moveDown = False
+        # if self.downCollide or (self.rect.center[0] < 183 and self.rect.center[1] > 314) or self.rect.y + self.rect.height + self.velocity >= self.handler.game.gameState.gameDisplayer.world_1.background.get_rect().height - 140:
+        #     self.moveDown = False
 
-        if self.moveRight and self.moveDown:
-            if self.sprint == True:
-                self.pos_float[0] += math.sqrt(
-                    (math.pow(self.maxVelocity, 2))/2)
-                self.pos_float[1] += math.sqrt(
-                    (math.pow(self.maxVelocity, 2))/2)
-            else:
-                self.pos_float[0] += math.sqrt((math.pow(self.velocity, 2))/2)
-                self.pos_float[1] += math.sqrt((math.pow(self.velocity, 2))/2)
-            return
+        # if self.moveRight and self.moveDown:
+        #     if self.sprint == True:
+        #         self.pos_float[0] += math.sqrt(
+        #             (math.pow(self.maxVelocity, 2))/2)
+        #         self.pos_float[1] += math.sqrt(
+        #             (math.pow(self.maxVelocity, 2))/2)
+        #     else:
+        #         self.pos_float[0] += math.sqrt((math.pow(self.velocity, 2))/2)
+        #         self.pos_float[1] += math.sqrt((math.pow(self.velocity, 2))/2)
+        #     return
 
-        if self.moveLeft and self.moveUp:
-            if self.sprint == True:
-                self.pos_float[0] += - \
-                    math.sqrt((math.pow(self.maxVelocity, 2))/2)
-                self.pos_float[1] += - \
-                    math.sqrt((math.pow(self.maxVelocity, 2))/2)
-            else:
-                self.pos_float[0] += -math.sqrt((math.pow(self.velocity, 2))/2)
-                self.pos_float[1] += -math.sqrt((math.pow(self.velocity, 2))/2)
-            return
+        # if self.moveLeft and self.moveUp:
+        #     if self.sprint == True:
+        #         self.pos_float[0] += - \
+        #             math.sqrt((math.pow(self.maxVelocity, 2))/2)
+        #         self.pos_float[1] += - \
+        #             math.sqrt((math.pow(self.maxVelocity, 2))/2)
+        #     else:
+        #         self.pos_float[0] += -math.sqrt((math.pow(self.velocity, 2))/2)
+        #         self.pos_float[1] += -math.sqrt((math.pow(self.velocity, 2))/2)
+        #     return
 
-        if self.moveRight and self.moveUp:
-            if self.sprint == True:
-                self.pos_float[0] += math.sqrt(
-                    (math.pow(self.maxVelocity, 2))/2)
-                self.pos_float[1] += - \
-                    math.sqrt((math.pow(self.maxVelocity, 2))/2)
-            else:
-                self.pos_float[0] += math.sqrt((math.pow(self.velocity, 2))/2)
-                self.pos_float[1] += -math.sqrt((math.pow(self.velocity, 2))/2)
-            return
+        # if self.moveRight and self.moveUp:
+        #     if self.sprint == True:
+        #         self.pos_float[0] += math.sqrt(
+        #             (math.pow(self.maxVelocity, 2))/2)
+        #         self.pos_float[1] += - \
+        #             math.sqrt((math.pow(self.maxVelocity, 2))/2)
+        #     else:
+        #         self.pos_float[0] += math.sqrt((math.pow(self.velocity, 2))/2)
+        #         self.pos_float[1] += -math.sqrt((math.pow(self.velocity, 2))/2)
+        #     return
 
-        if self.moveLeft and self.moveDown:
-            if self.sprint == True:
-                self.pos_float[0] += - \
-                    math.sqrt((math.pow(self.maxVelocity, 2))/2)
-                self.pos_float[1] += math.sqrt(
-                    (math.pow(self.maxVelocity, 2))/2)
-            else:
-                self.pos_float[0] += -math.sqrt((math.pow(self.velocity, 2))/2)
-                self.pos_float[1] += math.sqrt((math.pow(self.velocity, 2))/2)
-            return
+        # if self.moveLeft and self.moveDown:
+        #     if self.sprint == True:
+        #         self.pos_float[0] += - \
+        #             math.sqrt((math.pow(self.maxVelocity, 2))/2)
+        #         self.pos_float[1] += math.sqrt(
+        #             (math.pow(self.maxVelocity, 2))/2)
+        #     else:
+        #         self.pos_float[0] += -math.sqrt((math.pow(self.velocity, 2))/2)
+        #         self.pos_float[1] += math.sqrt((math.pow(self.velocity, 2))/2)
+        #     return
 
         if self.moveRight:
             if self.sprint == True:
@@ -159,17 +165,18 @@ class Character(pygame.sprite.Sprite):
             else:
                 self.pos_float[0] -= self.velocity
 
-        if self.moveUp:
-            if self.sprint == True:
-                self.pos_float[1] -= self.maxVelocity
-            else:
-                self.pos_float[1] -= self.velocity
+        # if self.moveUp:
+        #     if self.sprint == True:
+        #         self.pos_float[1] -= self.maxVelocity
+        #     else:
+        #         self.pos_float[1] -= self.velocity
 
-        if self.moveDown:
-            if self.sprint == True:
-                self.pos_float[1] += self.maxVelocity
-            else:
-                self.pos_float[1] += self.velocity
+        # if self.moveDown:
+        #     if self.sprint == True:
+        #         self.pos_float[1] += self.maxVelocity
+        #     else:
+        #         self.pos_float[1] += self.velocity
+        # print(self.velocity)
 
     def updatePos(self):
         self.rect.x = int(self.pos_float[0])
@@ -202,17 +209,17 @@ class Character(pygame.sprite.Sprite):
                 self.side = 'left'
                 self.currentAnimation = self.leftRunAnimation
 
-            if self.moveUp:
-                if self.side == 'right':
-                    self.currentAnimation = self.rightRunAnimation
-                else:
-                    self.currentAnimation = self.leftRunAnimation
+            # if self.moveUp:
+            #     if self.side == 'right':
+            #         self.currentAnimation = self.rightRunAnimation
+            #     else:
+            #         self.currentAnimation = self.leftRunAnimation
 
-            if self.moveDown:
-                if self.side == 'right':
-                    self.currentAnimation = self.rightRunAnimation
-                else:
-                    self.currentAnimation = self.leftRunAnimation
+            # if self.moveDown:
+            #     if self.side == 'right':
+            #         self.currentAnimation = self.rightRunAnimation
+            #     else:
+            #         self.currentAnimation = self.leftRunAnimation
 
         # attack animation
         if (self.orderedToAttack and not self.isAttacking):
@@ -244,6 +251,22 @@ class Character(pygame.sprite.Sprite):
                 self.leftHurtAnimation.index = 0
                 self.getHurt = False
                 # self.leftHurtAnimation.index = 0
+
+        # jump animation
+        if (self.orderedToJump and not self.isJumping):
+            self.isJumping = True
+            if self.side == 'right':
+                self.currentAnimation = self.rightJumpAnimation
+            if self.side == 'left':
+                self.currentAnimation = self.leftJumpAnimation
+        # stopping attack animation
+        if self.isJumping:
+            length = len(self.currentAnimation.frames)-1
+            if self.currentAnimation.index == length:
+                self.isJumping = False
+                # self.orderedToAttack = False # to prevent keep attacking using move keys
+                self.rightJumpAnimation.index = 0
+                self.leftJumpAnimation.index = 0
 
         # death animation
         if self.dead == True:

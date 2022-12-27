@@ -1,18 +1,17 @@
-# from character import Character
-
 
 class GameCamera:
 
-    def __init__(self, handler):
+    def __init__(self, handler, world_width):
         self.handler = handler
         self.xOffset = 0
         self.yOffset = 0
+        self.world_width = world_width
 
     def checkBlankSpace(self):
         if self.xOffset < 0:
             self.xOffset = 0
-        elif self.xOffset > 3836 - self.handler.game.WIDTH:  # 1920 = background width
-            self.xOffset = 3836 - self.handler.game.WIDTH
+        elif self.xOffset > self.world_width - self.handler.game.WIDTH:  # 1920 = background width "3836"
+            self.xOffset = self.world_width - self.handler.game.WIDTH
 
         if self.yOffset < 0:
             self.yOffset = 0

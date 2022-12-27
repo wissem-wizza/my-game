@@ -13,7 +13,7 @@ class Game:
         pygame.display.set_caption("FAST CRUSH !")
         self.FPS = 60
         self.WIDTH = 900
-        self.HEIGHT = 500
+        self.HEIGHT = 480  # 500
         self.WIN = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
         self.BLACK = (0, 0, 0)
         self.WHITE = (255, 255, 255)
@@ -27,8 +27,6 @@ class Game:
         self.menuState.initializer()
         self.gameState = GameState(self.handler)
         self.gameState.initializer()
-        # self.gameDisplayer = GameDisplayer(self.handler)
-        # self.gameDisplayer.initializer()
         self.currentState = self.menuState
 
     # draw everything here:

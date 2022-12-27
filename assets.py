@@ -12,7 +12,7 @@ class Assets:
 
     def initAssets(self):
         self.heroknight = self.parceling(SpriteSheet(
-            [["Hero Knight/HeroKnight", 10, 9]], (1, 1)), [8, 18, 24, 0, 46, 48, 58])
+            [["Hero Knight/HeroKnight", 10, 9]], (1, 1)), [8, 18, 24, 0, 46, 48, 58, 0, 38, 45])
 
         self.background = pygame.image.load("Assets/Menu/menu background.jpg")
         self.background = pygame.transform.scale(
@@ -23,29 +23,13 @@ class Assets:
         # self.grid.set_alpha(100)
 
         self.newGame = self.buttons("New game Button.png", 200, 60)
-        # self.newGame_rect = self.rect_pos(self.newGame, 2.5, 10)
-
         self.quit = self.buttons("Quit Button.png", 200, 60)
-        # self.quit_rect = self.rect_pos(self.quit, 2.5, 4)
-
         self.options = self.buttons("options Button.png", 200, 60)
-        # self.options_rect = self.rect_pos(self.options, 2.5, 2.5)
-
         self.start = self.buttons("Start Button.png", 200, 60)
-        # self.start_rect = self.rect_pos(self.start, 2.6, 1.8)
-
         self.back = self.buttons("Back Button.png", 200, 60)
-        # self.back_rect = self.rect_pos(self.back, 2.6, 1.4)
-
         self.right = self.buttons("Next Square Button.png", 50, 50)
-        # self.right_rect = self.rect_pos(self.right, 1.3, 5)
-
         self.left = self.buttons("Back Square Button.png", 50, 50)
-        # self.left_rect = self.rect_pos(self.left, 7, 5)
-
         self.continu = self.buttons("Continue Button.png", 50, 50)
-        # self.continu_rect = self.rect_pos(self.continu, 2.5, 4)
-
         self.resume = self.buttons("Resume Button.png", 200, 60)
 
     def buttons(self, img, w, h):

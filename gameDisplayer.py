@@ -6,19 +6,30 @@ from world import World
 # from enemyController import EnemyController
 from heroesList import *
 # from gameObject import GameObject
-from gameCamera import GameCamera
+# from gameCamera import GameCamera
 
 
 class GameDisplayer():
 
     def __init__(self, handler):
         self.handler = handler
+        self.player = Player(self.handler)
+
+        ## just for test ##
+        self.player.hero = HeroKnight(self.handler)
+        self.handler.characterManager.characterGroup.add(
+            self.player.hero)
+        ##################
+        self.world_1 = World(self.handler, self.player.hero, "Assets/parallax/ground.png", [
+            "parallax/plx-1.png", "parallax/plx-2.png", "parallax/plx-3.png", "parallax/plx-4.png", "parallax/plx-5.png"])
+        # self.world_1.initializer()
+        self.current_world = self.world_1
 
     def initializer(self):
         self.handler.initializer()
         self.assets = self.handler.game.assets
         self.assets.initAssets()
-        self.camera = GameCamera(self.handler)
+        # self.camera = GameCamera(self.handler)
         # self.stairGroup = pygame.sprite.Group()
         # self.stair1 = GameObject(self.handler,'stairFL', 185,242)
         # self.stairGroup.add(self.stair1, self.stair2, self.stair3, self.stair4)
@@ -30,17 +41,19 @@ class GameDisplayer():
 
         # , "battle_arena.png"
         # self.world_1 = World(self.handler)
-        self.world_1 = World(self.handler, "parallax/ground.png")
-        self.world_1.initializer()
-        self.current_world = self.world_1
 
-        self.player = Player(self.handler)
+        # self.world_1 = World(self.handler, "Assets/parallax/ground.png", [
+        #     "parallax/plx-1.png", "parallax/plx-2.png", "parallax/plx-3.png", "parallax/plx-4.png", "parallax/plx-5.png"])
+        # # self.world_1.initializer()
+        # self.current_world = self.world_1
 
-        ## just for test ##
-        self.player.hero = HeroKnight(self.handler)
-        self.handler.characterManager.characterGroup.add(
-            self.player.hero)
-        ##################
+        # self.player = Player(self.handler)
+
+        # ## just for test ##
+        # self.player.hero = HeroKnight(self.handler)
+        # self.handler.characterManager.characterGroup.add(
+        #     self.player.hero)
+        # ##################
 
         # self.tower_1 = Tower(self.handler)
         # self.tower_1.controller = EnemyController(self.handler, self.tower_1)
@@ -68,7 +81,7 @@ class GameDisplayer():
         # # self.handler.characterManager.enemy_spawn(self.heroknight, 2500, 250)
 
     def tick(self):
-        print("game state tick")
+        # print("game state tick")
         # return
         self.current_world.tick()  # include characterManager
         self.player.tick()

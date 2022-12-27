@@ -102,13 +102,15 @@ class MenuState():
         elif self.displayer["newgame"]:
 
             if self.check_clicked_button(self.right_rect):
-                print("right")
+                return
+                # print("right")
                 # self.choosenHero += 1
                 # if self.choosenHero >= len(self.heroes):
                 #     self.choosenHero = 0
 
             if self.check_clicked_button(self.left_rect):
-                print("left")
+                return
+                # print("left")
                 # self.choosenHero -= 1
                 # if self.choosenHero < 0:
                 #     self.choosenHero = len(self.heroes) - 1

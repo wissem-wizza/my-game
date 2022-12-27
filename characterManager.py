@@ -7,12 +7,15 @@ class CharacterManager():
 
     def __init__(self, handler):
         self.handler = handler
-
-    def initializer(self):
-
         self.characterGroup = pygame.sprite.Group()
         self.enemies = []
         self.transparency = False
+
+    # def initializer(self):
+
+    #     # self.characterGroup = pygame.sprite.Group()
+    #     self.enemies = []
+    #     self.transparency = False
 
     def enemy_spawn(self, character, x, y):
         character.pos_float[0] = x
@@ -92,7 +95,7 @@ class CharacterManager():
             del character1.hittingList[:]
 
     def blocked(self, character):
-        if character.rect.x + character.rect.width + character.velocity + 1 >= self.handler.game.gameState.gameDisplayer.world_1.bg.get_rect().width or character.rect.x - character.velocity - 1 < 0 or character.rect.y - character.velocity - 1 < 0 or character.rect.y + character.rect.height + character.velocity + 1 > self.handler.game.gameState.gameDisplayer.world_1.bg.get_rect().height:
+        if character.rect.x + character.rect.width + character.velocity + 1 >= self.handler.game.gameState.gameDisplayer.world_1.background.get_rect().width or character.rect.x - character.velocity - 1 < 0 or character.rect.y - character.velocity - 1 < 0 or character.rect.y + character.rect.height + character.velocity + 1 > self.handler.game.gameState.gameDisplayer.world_1.background.get_rect().height:
             return True
         if character.rightCollide or character.leftCollide or character.topCollide or character.downCollide:
             return True
