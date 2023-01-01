@@ -23,9 +23,9 @@ class GameCamera:
             self.xOffset = character.rect.x - self.handler.game.WIDTH / 2 + character.rect.w / 2
             self.yOffset = character.rect.y - \
                 self.handler.game.HEIGHT / 2 + character.rect.h / 2
-        self.checkBlankSpace()
+        # self.checkBlankSpace()
 
-    def move(self, xAmt, yAmt):
-        self.xOffset += xAmt
-        self.yOffset += yAmt
-        self.checkBlankSpace()
+    # def move(self, xAmt, yAmt):
+    #     self.xOffset += xAmt
+    #     self.yOffset += yAmt
+    #     self.checkBlankSpace()

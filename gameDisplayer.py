@@ -1,4 +1,4 @@
-# import pygame
+import pygame
 from player import Player
 # from versusPlayer import VersusPlayer
 from world import World
@@ -13,6 +13,8 @@ class GameDisplayer():
 
     def __init__(self, handler):
         self.handler = handler
+        self.WIN = self.handler.game.WIN
+
         self.player = Player(self.handler)
 
         ## just for test ##
@@ -89,9 +91,7 @@ class GameDisplayer():
         # # self.versusPlayer.tick()
 
     def draw(self):
-        # print("game state draw")
         self.current_world.draw()
-        # return
         # self.stair1.draw()
         self.player.draw()
         # if self.tower_2.dead and self.tower_2.rightDeathAnimation.index > 15:

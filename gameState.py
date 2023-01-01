@@ -31,7 +31,7 @@ class GameState():
     def rect_pos(self, button, a, b):
         button_rect = button.get_rect()
         button_rect.x = math.ceil(self.handler.game.WIN.get_width()/a)
-        button_rect.y = math.ceil(self.handler.game.WIN.get_height()/b)
+        button_rect.y = math.ceil(self.handler.game.WIN.get_height()/b + 60)
         return button_rect
 
     def screen_draw(self, screen_name):

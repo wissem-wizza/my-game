@@ -73,7 +73,7 @@ class Player:
         self.handler.game.gameState.gameDisplayer.current_world.camera.centerOnEntity(
             self.hero)
         self.hero.tick()
-        # print("player x = " + str(self.hero.rect.center[0]))
+        print("player x = " + str(self.hero.rect.center[0]))
         # print("player y = " + str(self.hero.rect.center[1]))
         # self.allowCollisionWithStairs()
 
